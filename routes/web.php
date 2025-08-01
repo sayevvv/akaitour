@@ -9,6 +9,10 @@ Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
 
+Route::get('/register/pending', function () {
+    return Inertia::render('auth/pending-verification');
+})->name('auth.pending');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');

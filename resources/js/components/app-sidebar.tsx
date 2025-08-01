@@ -7,6 +7,7 @@ import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
 import { usePage } from '@inertiajs/react';
 import { type NavItem, type SharedData } from '@/types';
 import AppLogo from './app-logo';
+import { Icon } from '@/components/ui/icon';
 
 import { Home, UserCheck, Swords } from 'lucide-react';
 
