@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role', // Tambahkan ini
+        'is_verified', // Tambahkan ini
     ];
 
     /**
@@ -43,6 +45,33 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_verified' => 'boolean'
         ];
+    }
+
+    // --- RELASI ELOQUENT ---
+
+    /**
+     * Seorang user (admin) bisa membuat banyak turnamen.
+     */
+    public function tournaments(): HasMany
+    {
+        return $this->hasMany(Tournament::class, 'created_by');
+    }
+
+    /**
+     * Seorang user (juri) bisa menilai banyak pertandingan.
+     */
+    public function judgedMatches()
+    {
+        return $this->belongsToMany(MatchModel::class, 'match_juri', 'juri_id', 'match_id');
+    }
+
+    /**
+     * Seorang user (juri) bisa memberikan banyak skor.
+     */
+    public function scores(): HasMany
+    {
+        return $this->hasMany(Score::class, 'juri_id');
     }
 }
