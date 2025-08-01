@@ -2,6 +2,7 @@
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\TournamentController;
 
 Route::get('/', function () {
@@ -14,9 +15,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
-Route::middleware(['auth', 'role:admin,master_admin'])->group(function () {
-    Route::get('/tournaments', [TournamentController::class, 'index'])->name('tournaments.index');
-    // Letakkan semua route yang hanya bisa diakses admin di sini
+Route::middleware(['auth', 'role:master_admin'])->prefix('admin')->name('admin.')->group(function () {
+    // Route untuk menampilkan halaman verifikasi pengguna
+    Route::get('/users/verify', [UserController::class, 'index'])->name('users.verify.index');
+    // Route untuk melakukan aksi verifikasi
+    Route::patch('/users/{user}/verify', [UserController::class, 'verify'])->name('users.verify.update');
 });
 
 require __DIR__.'/settings.php';

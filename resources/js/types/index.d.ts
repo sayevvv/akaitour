@@ -35,6 +35,7 @@ export interface User {
     id: number;
     name: string;
     email: string;
+    role: 'master_admin' | 'admin' | 'juri' | 'orang_layar';
     avatar?: string;
     email_verified_at: string | null;
     created_at: string;
