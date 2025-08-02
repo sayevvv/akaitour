@@ -20,10 +20,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:master_admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/users', [UserController::class, 'list'])->name('users.list');
     // Route untuk menampilkan halaman verifikasi pengguna
     Route::get('/users/verify', [UserController::class, 'index'])->name('users.verify.index');
     // Route untuk melakukan aksi verifikasi
     Route::patch('/users/{user}/verify', [UserController::class, 'verify'])->name('users.verify.update');
+    Route::delete('/users/{user}/reject', [UserController::class, 'reject'])->name('users.reject');
 });
 
 require __DIR__.'/settings.php';

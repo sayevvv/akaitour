@@ -9,7 +9,7 @@ import { type NavItem, type SharedData } from '@/types';
 import AppLogo from './app-logo';
 import { Icon } from '@/components/ui/icon';
 
-import { Home, UserCheck, Swords } from 'lucide-react';
+import { Home, UserCheck, Swords, Users } from 'lucide-react';
 
 const footerNavItems: NavItem[] = [
     {
@@ -42,6 +42,11 @@ export function AppSidebar() {
             title: 'Verifikasi Akun',
             href: 'admin.users.verify.index', // Nama route
             icon: UserCheck,
+        });
+        navigationItems.push({
+            title: 'Daftar Pengguna',
+            href: 'admin.users.list', // Nama route
+            icon: Users,
         });
     }
 
