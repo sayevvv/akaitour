@@ -2,6 +2,7 @@
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MatchController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\TournamentController;
 
@@ -17,6 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+    Route::get('/matches/{match}', [MatchController::class, 'show'])->name('matches.show');
 });
 
 Route::middleware(['auth', 'role:master_admin'])->prefix('admin')->name('admin.')->group(function () {

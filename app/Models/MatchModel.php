@@ -47,8 +47,9 @@ class MatchModel extends Model
         return $this->belongsTo(Player::class, 'winner_id');
     }
 
-    public function scores(): HasMany
+     public function scores(): HasMany
     {
-        return $this->hasMany(Score::class);
+        // Beri tahu Eloquent nama foreign key yang benar adalah 'match_id'
+        return $this->hasMany(Score::class, 'match_id');
     }
 }
