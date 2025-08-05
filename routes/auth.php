@@ -54,4 +54,6 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
+
+    Route::get('/matches/{match}', [MatchController::class, 'show'])->name('matches.show');
 });

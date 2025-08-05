@@ -1,6 +1,13 @@
 import { LucideIcon } from 'lucide-react';
 import type { Config } from 'ziggy-js';
 
+declare global {
+    interface Window {
+        Echo: Echo;
+        Pusher: typeof Pusher;
+    }
+}
+
 export interface Auth {
     user: User;
 }
@@ -42,3 +49,50 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface Player {
+    id: number;
+    name: string;
+    nickname: string | null;
+    team_name: string | null;
+    photo_url: string | null;
+}
+
+// Interface for a Score, including the Juri relationship
+export interface Score {
+    id: number;
+    match_id: number;
+    player_id: number;
+    juri_id: number;
+    score_value: number;
+    juri: User; // The Juri who gave the score
+}
+
+// Interface for a Match, including all its relationships
+export interface Match {
+    id: number;
+    tournament_id: number;
+    player1_id: number;
+    player2_id: number;
+    winner_id: number | null;
+    player1: Player; // Player 1 object
+    player2: Player; // Player 2 object
+    scores: Score[]; // An array of scores
+    status: 'pending' | 'ready' | 'ongoing' | 'completed' | 'disputed';
+}
+
+// Defines the shared data available on all pages
+export interface SharedData {
+    name: string;
+    quote: { message: string; author: string };
+    auth: {
+        user: User;
+    };
+    ziggy: Config & { location: string };
+    sidebarOpen: boolean;
+}
+
+// This is the generic PageProps for your application
+export type PageProps<
+    T extends Record<string, unknown> = Record<string, unknown>,
+> = T & SharedData;
