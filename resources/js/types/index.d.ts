@@ -56,6 +56,7 @@ export interface Player {
     nickname: string | null;
     team_name: string | null;
     photo_url: string | null;
+    origin: string | null;
 }
 
 // Interface for a Score, including the Juri relationship
@@ -90,6 +91,21 @@ export interface SharedData {
     };
     ziggy: Config & { location: string };
     sidebarOpen: boolean;
+}
+
+export interface Tournament {
+    id: number;
+    name: string;
+    description: string | null;
+    status: 'draft' | 'published' | 'ongoing' | 'completed' | 'archived';
+    players_count?: number; // Tambahkan ini (opsional)
+    players?: Player[]; // Ubah menjadi opsional
+}
+
+export interface DashboardStats {
+    total_tournaments: number;
+    total_players: number;
+    ongoing_tournaments: number;
 }
 
 // This is the generic PageProps for your application

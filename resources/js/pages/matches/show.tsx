@@ -69,7 +69,7 @@ export default function MatchShowPage({ match: initialMatch }: { match: Match })
             console.error("Data match atau player tidak lengkap!", match);
             return; // Hentikan eksekusi jika data krusial tidak ada
         }
-        
+
         groupScoresByJuri(match.scores);
 
         const channel = window.Echo.private(`match.${match.id}`);
@@ -120,6 +120,18 @@ export default function MatchShowPage({ match: initialMatch }: { match: Match })
 
         toast.success("Skor Anda terkirim!");
     };
+
+    if (!initialMatch || !initialMatch.player1 || !initialMatch.player2) {
+        return (
+            <AppLayout>
+                <Head title="Memuat Pertandingan..." />
+                <div className="text-center py-12">
+                    <h1 className="text-2xl font-bold">Memuat Data Pertandingan...</h1>
+                    <p>Jika halaman tidak muncul, pastikan data pemain untuk pertandingan ini lengkap.</p>
+                </div>
+            </AppLayout>
+        );
+    }
 
     return (
         <AppLayout>

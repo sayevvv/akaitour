@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Player extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'nickname', 'photo_url', 'team_name'];
+    protected $fillable = ['name', 'nickname', 'photo_url', 'team_name', 'origin'];
 }
