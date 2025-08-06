@@ -18,6 +18,13 @@ type GroupedScores = {
     };
 };
 
+interface MatchShowProps extends PageProps {
+    match: Match;
+    debug: {
+        match_with_relations: object;
+    };
+}
+
 export default function MatchShowPage({ match: initialMatch }: { match: Match }) {
     const { auth } = usePage<PageProps>().props;
     const [match, setMatch] = useState<Match>(initialMatch);
@@ -32,6 +39,12 @@ export default function MatchShowPage({ match: initialMatch }: { match: Match })
     const groupScoresByJuri = (scores: Score[]) => {
         const groups: GroupedScores = {};
         scores.forEach((score) => {
+            // PERBAIKAN: Tambahkan pengecekan ini.
+            // Jika data skor atau data juri tidak ada, lewati proses untuk skor ini.
+            if (!score || !score.juri) {
+                return;
+            }
+
             const juriId = score.juri.id;
             if (!groups[juriId]) {
                 groups[juriId] = {
@@ -52,6 +65,11 @@ export default function MatchShowPage({ match: initialMatch }: { match: Match })
 
     // Efek untuk subscribe ke channel Echo dan grouping skor awal
     useEffect(() => {
+        if (!match || !match.player1 || !match.player2) {
+            console.error("Data match atau player tidak lengkap!", match);
+            return; // Hentikan eksekusi jika data krusial tidak ada
+        }
+        
         groupScoresByJuri(match.scores);
 
         const channel = window.Echo.private(`match.${match.id}`);

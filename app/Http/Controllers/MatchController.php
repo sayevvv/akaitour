@@ -15,13 +15,15 @@ class MatchController extends Controller
         $match->load([
             'player1',
             'player2',
-            'scores' => function ($query) {
-                $query->with('juri')->orderBy('juri_id');
-            }
+            'scores.juri' // Muat relasi juri dari skor
         ]);
 
         return Inertia::render('matches/show', [
             'match' => $match,
+            // TAMBAHKAN DATA DEBUG INI
+            'debug' => [
+                'match_with_relations' => $match->toArray(),
+            ]
         ]);
     }
 }
