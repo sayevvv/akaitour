@@ -48,11 +48,6 @@ export function AppSidebar() {
             href: 'admin.users.list', // Nama route
             icon: Users,
         });
-        navigationItems.push({
-            title: 'Turnamen',
-            href: 'admin.tournaments.create',
-            icon: Swords,
-        });
     }
 
     // Item khusus Admin & Master Admin
